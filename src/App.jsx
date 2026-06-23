@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import TopBar from "./Components/TopBar";
 import ChatButton from "./Components/ChatButton";
 import { categories, products as staticProducts } from "./Lib/appData";
+import SellerDashboardPage from "./Pages/SellerDashboardPage";
 import {
   STORAGE_KEYS,
   clearStore,
@@ -448,6 +449,16 @@ export default function App() {
       />
     );
   }
+  if (page === "seller" && user?.role === "seller") {
+  return (
+    <SellerDashboardPage
+      user={user}
+      onBack={() => go("home")}
+      onLogout={logout}
+      onProductsChanged={() => loadProducts(search)}
+    />
+  );
+}
 
   if (page === "profile") {
     return pageWithShell(
@@ -460,6 +471,7 @@ export default function App() {
         onLogout={logout}
         onChat={() => go("chat")}
         onAdmin={() => go("admin")}
+        onSeller={() => go("seller")}
       />,
     );
   }

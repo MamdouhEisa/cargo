@@ -177,6 +177,7 @@ export default function ProfilePage({
   onLogout,
   onChat,
   onAdmin,
+  onSeller
 }) {
   const [form, setForm] = useState(user);
   const [saving, setSaving] = useState(false);
@@ -273,15 +274,21 @@ export default function ProfilePage({
             {form.role}
           </p>
         ) : null}
-        {form.role === "admin" && onAdmin ? (
-          <button
-            type="button"
-            onClick={onAdmin}
-            className="mt-4 h-11 rounded-full bg-[#27489f] px-8 font-bold text-white"
-          >
-            Open Admin Dashboard
-          </button>
-        ) : null}
+      {(form.role === "admin" || form.role === "seller") ? (
+        <button
+          type="button"
+          onClick={
+            form.role === "admin"
+              ? onAdmin
+              : onSeller
+          }
+          className="mt-4 h-11 rounded-full bg-[#27489f] px-8 font-bold text-white"
+        >
+          {form.role === "admin"
+            ? "Open Admin Dashboard"
+            : "Open Seller Dashboard"}
+        </button>
+      ) : null}
       </section>
       <div className="mt-9 border-t border-slate-300 pt-8">
         <div className="grid gap-4 md:grid-cols-2">
